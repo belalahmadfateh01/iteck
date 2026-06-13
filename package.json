@@ -1,0 +1,30 @@
+{
+  "name": "iteck",
+  "version": "1.0.0",
+  "description": "a demo backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/belalahmadfateh01/iteck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/belalahmadfateh01/iteck/issues"
+  },
+  "homepage": "https://github.com/belalahmadfateh01/iteck#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.5"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
