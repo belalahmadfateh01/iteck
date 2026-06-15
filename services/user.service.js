@@ -39,16 +39,16 @@ const addUser = async (data) => {
 };
 
 const getAllUsers = async () => {
-    const query = `SELECT * FROM users`;
-    const [result] = await pool.execute(query, []);
-    return result;
-}
+  const query = `SELECT * FROM users`;
+  const [result] = await pool.execute(query, []);
+  return result;
+};
 
 const getUser = async (id) => {
-    if (!id) return null;
-    const query = `SELECT * FROM users WHERE id = ?`;
-    const [result] = await pool.execute(query, [id]);
-    return result;
-}
+  if (!id) return null;
+  const query = `SELECT * FROM users WHERE id = ?`;
+  const [result] = await pool.execute(query, [id]);
+  return result;
+};
 
 export { addUser, getAllUsers, getUser }
