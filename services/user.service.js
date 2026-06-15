@@ -1,18 +1,42 @@
 import pool from "../config/db.config.js";
 
 const addUser = async (data) => {
-    try {
+    const { first_name, last_name, job, role } = data;
 
-        const { first_name, last_name, job, role } = data;
-        const query = `INSERT INTO users VALUES (?, ?, ?, ?)`;
-        const [result] = await pool.execute(query, [first_name, last_name, job, role]);
-        return result.insertId;
-
-    } catch (err) {
-        console.log(err);
-        return null;
+    if (!first_name || !last_name || !role) {
+        throw new Error(
+            'first name, last name and role are required'
+        );
     }
-}
+
+    const validRoles = [
+        'team_member',
+        'common_member'
+    ];
+
+    if (!validRoles.includes(role)) {
+        throw new Error('Invalid role, role must be (common_member or team_member)');
+    }
+
+    const query = `
+        INSERT INTO users (
+            first_name,
+            last_name,
+            job,
+            role
+        )
+        VALUES (?, ?, ?, ?)
+    `;
+
+    const [result] = await pool.execute(query, [
+        first_name,
+        last_name,
+        job ?? null,
+        role
+    ]);
+
+    return result.insertId;
+};
 
 const getAllUsers = async () => {
     const query = `SELECT * FROM users`;
@@ -27,4 +51,4 @@ const getUser = async (id) => {
     return result;
 }
 
-export { addUser, getAllUsers }
+export { addUser, getAllUsers, getUser }
