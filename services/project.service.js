@@ -2,14 +2,24 @@ import pool from "../config/db.config.js";
 
 const addProject = async (data) => {
   try {
-    const { name, technology_type, description, tag, image } = data;
-    const qurey = `INSERT INTO project VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT)`;
+    if(!data) throw new Error("No data object provided");
+  
+    const { name, technology_type, description, tag } = data;
+    if(!name || !technology_type || !description || !tag) throw new Error("name, technology, description and tage are required");
+    
+    const qurey = `
+    INSERT INTO project(
+    name,
+    technology_type,
+    description,
+    tag)
+    VALUES (?, ?, ?, ?)`;
+
     const [result] = await pool.execute(qurey, [
       name,
       technology_type,
       description,
-      tag,
-      image,
+      tag
     ]);
     return result.insertId;
   } catch (err) {
@@ -25,7 +35,7 @@ const getAllProject = async () => {
 };
 
 const getProject = async (id) => {
-  if (!id) return null;
+  if (!id) throw new Error("No id provided");
   const query = `SELECT * FROM project WHERE id = ?`;
   const [result] = await pool.execute(query, [id]);
   return result;
