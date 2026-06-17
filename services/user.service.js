@@ -31,6 +31,7 @@ const addUser = async (data) => {
     const [result] = await pool.execute(query, [
         first_name,
         last_name,
+
         job ?? null,
         role
     ]);
@@ -48,7 +49,7 @@ const getUser = async (id) => {
   if (!id) return null;
   const query = `SELECT * FROM users WHERE id = ?`;
   const [result] = await pool.execute(query, [id]);
-  return result;
+  return result[0] ?? null;
 };
 
 export { addUser, getAllUsers, getUser }
